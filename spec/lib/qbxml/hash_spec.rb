@@ -5,6 +5,11 @@ describe Qbxml::Hash do
   let(:qbxml) { Qbxml.new(:qb) }
 
   describe 'self.hash_to_xml' do
+    it 'should be able to set different QBXML versions' do
+      xml = qbxml.to_qbxml(boilerplate('customer', customer), to_xml_opts: { version: '6.0' })
+      expect(xml).to match /qbxml version=\"6\.0/
+    end
+
     it 'should encode special characters with decimal htmlentities' do
       last_name = 'Hablé ">'
       c = customer

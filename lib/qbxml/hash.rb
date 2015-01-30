@@ -63,6 +63,7 @@ private
     opts[:indent]          ||= 0
     opts[:root]            ||= :hash
     opts[:attributes]      ||= (hash.delete(ATTR_ROOT) || {})
+    opts[:version]         ||= '7.0'
     opts[:xml_directive]   ||= [:xml, {}]
     opts[:builder]         ||= Builder::XmlMarkup.new(indent: opts[:indent])
     opts[:skip_types]      = true unless opts.key?(:skip_types) 
@@ -70,7 +71,7 @@ private
     builder = opts[:builder]
 
     unless opts.delete(:skip_instruct)
-      builder.instruct!(opts[:xml_directive].first, opts[:xml_directive].last)
+      builder.instruct!(opts[:xml_directive].first, version: opts[:version])
     end
 
     builder.tag!(opts[:root], opts.delete(:attributes)) do
